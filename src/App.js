@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { HashRouter as Router, Route } from 'react-router-dom';
+import AppShell from './AppShell';
+import Home from './components/Home';
+import Texts from './components/Texts';
+import Words from './components/Words';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+render() {
+return (
+<Router>
+<AppShell>
+<div>
+<Route exact path="/" component={Home}/>
+<Route exact path="/texts" component={Texts}/>
+<Route exact path="/words" component={Words}/>
+</div>
+</AppShell>
+</Router>
+
+);
+}
 }
 
 export default App;

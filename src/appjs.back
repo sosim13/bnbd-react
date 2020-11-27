@@ -1,0 +1,53 @@
+import React from 'react';
+const databaseURL = "https://bnbd-react.firebaseio.com/";
+
+class App extends React.Component  {
+  constructor() {
+        super();
+        this.state = {
+            words: {}
+        };
+    }
+
+    _get() {
+        fetch(`${databaseURL}/words.json`).then(res => {
+            if(res.status != 200) {
+                throw new Error(res.statusText);
+            }
+            return res.json();
+        }).then(words => this.setState({words: words}));
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextState.words != this.state.words
+    }
+
+    componentDidMount() {
+        this._get();
+    }
+
+    render() {
+        return (
+            <div>	
+                            <table border="1">
+                {Object.keys(this.state.words).map(id => {
+                    const word = this.state.words[id];
+                    return (					
+                                <tr>
+                                    <td>
+                                        {id}°¡ÁßÄ¡: {word.weight}
+                                    </td>
+                                    <td>
+                                        {word.word}
+                                    </td>
+                                </tr>
+                    );
+                })}
+                            </table>
+            </div>
+
+        );
+    }
+}
+
+export default App;
